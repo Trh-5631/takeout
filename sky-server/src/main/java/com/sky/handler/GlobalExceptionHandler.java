@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
         return Result.error(ex.getMessage());
     }
     /**
-     * 异常处理：处理重复用户名的异常，已实现
+     * 异常处理：处理重复平台端人员的账号名的异常，已实现
      * @param ex
      * @return
      */
