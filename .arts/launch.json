@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "__internalFromSnippet": true,
+            "type": "javadbg",
+            "name": "Maven",
+            "request": "launch",
+            "withProfiling": false,
+            "withCoverage": false,
+            "maven": {
+                "goals": [
+                    "install"
+                ]
+            }
+        }
+    ]
+}
