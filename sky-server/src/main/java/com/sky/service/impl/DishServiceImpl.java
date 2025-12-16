@@ -90,12 +90,31 @@ public class DishServiceImpl implements DishService {
             throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
         //删除商户的商户数据
-        for(Long id : ids) {
+        /* for(Long id : ids) {
             dishMapper.deleteById(id);
             //删除商户关联的备注信息
             dishFlavorMapper.deleteByDishId(id);
-        }
+        }*/
+        dishMapper.deleteByIds(ids);
+        dishFlavorMapper.deleteByDishIds(ids);
+    }
 
+    /**
+     * 根据id查询商户和对应备注
+     * @param id
+     * @return
+     */
+    public DishVO getByIdWithFlavor(Long id){
+        //根据id查询商户数据
+        Dish dish = dishMapper.getById(id);
 
+        //根据商户id查询备注数据
+        List<DishFlavor> dishFlavors = dishFlavorMapper.getByDishId(id);
+        //将数据封装至VO
+        DishVO dishVO = new DishVO();
+        BeanUtils.copyProperties(dish,dishVO);
+        dishVO.setFlavors(dishFlavors);
+
+        return dishVO;
     }
 }
