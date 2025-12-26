@@ -124,7 +124,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     }
 
     /**
-     * 查询菜品总览
+     * 查询商户总览
      *
      * @return
      */
@@ -143,7 +143,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     }
 
     /**
-     * 查询套餐总览
+     * 查询活动总览
      *
      * @return
      */

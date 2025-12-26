@@ -19,7 +19,7 @@ public interface DishFlavorMapper {
      *查询
      * @param dishId
      */
-    @Delete("delete from dish_flavor where dish_id = #{dishId}")
+    @Delete("delete from shopper_msg where dish_id = #{dishId}")
     void deleteByDishId(Long dishId);
 
     /**
@@ -33,6 +33,6 @@ public interface DishFlavorMapper {
      * @param dishId
      * @return
      */
-    @Select("select * from dish_flavor where dish_id = #{dishId}")
+    @Select("select * from shopper_msg where dish_id = #{dishId}")
     List<DishFlavor> getByDishId(Long dishId);
 }

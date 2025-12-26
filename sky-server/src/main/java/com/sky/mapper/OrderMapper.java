@@ -24,7 +24,7 @@ public interface OrderMapper {
      * @param orderNumber
      * @param userId
      */
-    @Select("select * from orders where number = #{orderNumber} and user_id= #{userId}")
+    @Select("select * from totalorders where number = #{orderNumber} and user_id= #{userId}")
     Orders getByNumberAndUserId(String orderNumber, Long userId);
 
     /**
@@ -43,14 +43,14 @@ public interface OrderMapper {
      * 根据id查询订单
      * @param id
      */
-    @Select("select * from orders where id=#{id}")
+    @Select("select * from totalorders where id=#{id}")
     Orders getById(Long id);
 
     /**
      * 根据状态统计订单数量
      * @param status
      */
-    @Select("select count(id) from orders where status = #{status}")
+    @Select("select count(id) from totalorders where status = #{status}")
     Integer countStatus(Integer status);
 
     /**
@@ -59,7 +59,7 @@ public interface OrderMapper {
      * @param orderTime
      * @return
      */
-    @Select("select * from orders where status = #{status} and order_time < #{orderTime}")
+    @Select("select * from totalorders where status = #{status} and order_time < #{orderTime}")
     List<Orders> getByStatusAndOrderTimeLT(Integer status, LocalDateTime orderTime);
 
     /**

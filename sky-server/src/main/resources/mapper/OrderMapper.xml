@@ -4,7 +4,7 @@
 <mapper namespace="com.sky.mapper.OrderMapper">
 
     <insert id="insert" parameterType="Orders" useGeneratedKeys="true" keyProperty="id">
-        insert into orders (number, status, user_id, address_book_id, order_time, checkout_time, pay_method, pay_status,
+        insert into totalorders (number, status, user_id, address_book_id, order_time, checkout_time, pay_method, pay_status,
                             amount, remark, phone, address, consignee, estimated_delivery_time, delivery_status,
                             pack_amount, tableware_number, tableware_status)
         values
@@ -14,7 +14,7 @@
     </insert>
 
     <update id="update" parameterType="com.sky.entity.Orders">
-        update orders
+        update totalorders
         <set>
             <if test="cancelReason != null and cancelReason!='' ">
                 cancel_reason=#{cancelReason},
@@ -45,7 +45,7 @@
     </update>
 
     <select id="pageQuery" resultType="Orders">
-        select * from orders
+        select * from totalorders
         <where>
             <if test="number != null and number!=''">
                 and number like concat('%',#{number},'%')
@@ -68,9 +68,13 @@
         </where>
         order by order_time desc
     </select>
-
     <select id="sumByMap" resultType="java.lang.Double">
-        select sum(amount) from orders
+        select sum(amount) from (
+        <!-- 合并两张表的数据 -->
+        select amount, order_time, status from totalorders
+        union all
+        select amount, order_time, status from orders
+        ) as combined_data
         <where>
             <if test="begin != null">
                 and order_time &gt; #{begin}
@@ -84,7 +88,11 @@
         </where>
     </select>
     <select id="countByMap" resultType="java.lang.Integer">
-        select count(id) from orders
+        select count(id) from (
+        select id, order_time, status from totalorders
+        union all
+        select id, order_time, status from orders
+        ) as all_records
         <where>
             <if test="begin != null">
                 and order_time &gt; #{begin}
@@ -99,7 +107,7 @@
     </select>
     <select id="getSalesTop10" resultType="com.sky.dto.GoodsSalesDTO">
         select od.name, sum(od.number) number
-        from order_detail od,orders o
+        from order_detail od,totalorders o
         where od.order_id = o.id and o.status = 5
         <if test="begin != null">
             and o.order_time &gt; #{begin}

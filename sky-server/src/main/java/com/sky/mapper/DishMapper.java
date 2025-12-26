@@ -21,7 +21,7 @@ public interface DishMapper {
      * @param categoryId
      * @return
      */
-    @Select("select count(id) from dish where category_id = #{categoryId}")
+    @Select("select count(id) from shopper where category_id = #{categoryId}")
     Integer countByCategoryId(Long categoryId);
 
     /**
@@ -43,14 +43,14 @@ public interface DishMapper {
      * @param id
      * @return
      */
-    @Select("select * from dish where id = #{id}")
+    @Select("select * from shopper where id = #{id}")
     Dish getById(Long id);
 
     /**
      *根据主键删除商户数据
      * @param id
      */
-    @Delete("delete from dish where id = #{id}")
+    @Delete("delete from shopper where id = #{id}")
     void deleteById(Long id);
 
     /**
@@ -78,7 +78,7 @@ public interface DishMapper {
      * @param setmealId
      * @return
      */
-    @Select("select a.* from dish a left join setmeal_dish b on a.id = b.dish_id where b.setmeal_id = #{setmealId}")
+    @Select("select a.* from shopper a left join activity_shopper b on a.id = b.dish_id where b.setmeal_id = #{setmealId}")
     List<Dish> getBySetmealId(Long setmealId);
 
     /**

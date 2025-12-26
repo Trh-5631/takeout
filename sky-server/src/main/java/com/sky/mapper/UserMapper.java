@@ -14,7 +14,7 @@ public interface UserMapper {
      * @param openid
      * @return
      */
-    @Select("select * from user where openid = #{openid}")
+    @Select("select * from baseuser where openid = #{openid}")
     User getByOpenid(String openid);
 
     /**
@@ -23,7 +23,7 @@ public interface UserMapper {
      */
     void insert(User user);
 
-    @Select("select * from user where id = #{id}")
+    @Select("select * from baseuser where id = #{id}")
     User getById(Long userId);
 
     /**
